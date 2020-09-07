@@ -23,6 +23,8 @@ script_name=$(basename $full_script)
 
 source $AWS_FPGA_REPO_DIR/shared/bin/set_common_functions.sh
 source $AWS_FPGA_REPO_DIR/shared/bin/set_common_env_vars.sh
+script_dir=$(dirname $full_script)
+
 
 debug=0
 
@@ -91,12 +93,6 @@ while [ "$1" != "" ]; do
     shift                                         
 done                                              
 
-if [ "$HDK_DIR" == "" ]
-then
-    err_msg "Env HDK_DIR not set"
-    exit 1
-fi
-echo $HDK_DIR
 if [ "$RELEASE_VER" == "" ]
 then
     err_msg "Env variable RELEASE_VER not set, did you source sdaccel_setup.sh?"
@@ -199,7 +195,7 @@ cp ${timestamp}_SH_CL_routed.dcp ./to_aws/
 #STEP 2
 #Create Manifest file
 strategy=DEFAULT     
-hdk_version=$(grep 'HDK_VERSION' $HDK_DIR/hdk_version.txt | sed 's/=/ /g' | awk '{print $2}')
+hdk_version=$(grep 'HDK_VERSION' $script_dir/../../hdk/hdk_version.txt | sed 's/=/ /g' | awk '{print $2}')
 shell_version=0x04261818
 tool_version=v$RELEASE_VER
 device_id=0xF010
@@ -217,9 +213,9 @@ clock_main_a0=$(echo `grep -B 1 SYSTEM ${timestamp}_clocks.json | grep -o -e '[0
 clock_extra_b0=$(echo `grep -B 2 DATA_CLK ${timestamp}_clocks.json | grep freq | grep -o -e '[0-9]*'`)
 clock_extra_c0=$(echo `grep -B 2 KERNEL_CLK ${timestamp}_clocks.json | grep -o -e '[0-9]*'`)
 
-if [[ "$vendor" != "xilinx" && "$board_id" != "aws-vu9p-f1" && "$plat_name" != "shell-v04261818" && "$major" != "201920" && "$minor" != "1" ]]
+if [[ "$vendor" != "xilinx" && "$board_id" != "aws-vu9p-f1" && "$plat_name" != "shell-v04261818" && "$major" != "201920" && "$minor" != "2" ]]
 then                                 
-    err_msg "Platform ${vendor}_${board_id}_${plat_name}_${major}_${minor} used to create xclbin is not correct, you should be using xilinx_aws-vu9p-f1_shell-v04261818_201920_1"
+    err_msg "Platform ${vendor}_${board_id}_${plat_name}_${major}_${minor} used to create xclbin is not correct, you should be using xilinx_aws-vu9p-f1_shell-v04261818_201920_2"
     exit                                                                                              
 fi                                                                                                    
 

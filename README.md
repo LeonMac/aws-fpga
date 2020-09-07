@@ -5,8 +5,8 @@
 1. [Overview of AWS EC2 FPGA Development Kit](#overviewdevkit)
     - [Development environments](#overviewdevenv)
     - [Runtime environments](#overviewrunenv)
-    - [Example applications](#overviewexapps)
     - [Development tools](#overviewdevtools)
+    - [Example applications](#overviewexapps)
 2. [Getting Started](#gettingstarted)
 3. [FPGA Developer AMI available on AWS Marketplace](#devAmi)
 4. [FPGA Hardware Development Kit (HDK)](#fpgahdk)
@@ -18,7 +18,9 @@
 <a name="overviewdevkit"></a>
 # Overview of AWS EC2 FPGA Development Kit
 
-The AWS EC2 FPGA Development Kit is provided by AWS to support development and runtime on [AWS FPGA instances](https://aws.amazon.com/ec2/instance-types/f1/).  Amazon EC2 FPGA instances are high-performance compute instances with field programmable gate arrays (FPGAs) that are programmed to create custom hardware accelerations in EC2. F1 instances are easy to program and AWS provides everything needed to develop, simulate, debug, compile and run hardware accelerated applications.  Using the [FPGA Developer AMI](https://aws.amazon.com/marketplace/pp/B06VVYBLZZ), developers create an FPGA design. Once the FPGA design (also called CL - Custom logic) is complete, developers create the Amazon FPGA Image (AFI), and easily deploy it to the F1 instance. AFIs are reusable, shareable and can be deployed in a scalable and secure way.
+AWS EC2 FPGA Development Kit is a set of free development and runtime tools that provide everything needed to develop, simulate, debug, compile and run hardware accelerated applications on [Amazon EC2 F1 instances](https://aws.amazon.com/ec2/instance-types/f1/), EC2 F1 instances are high-performance compute instances with field programmable gate arrays (FPGAs) that enable the development and deployment of custom hardware accelerators on AWS cloud.
+
+AWS EC2 FPGA Development Kit content is distributed between this github repository and [FPGA Developer AMI](https://aws.amazon.com/marketplace/pp/B06VVYBLZZ) provided by AWS, developers are able to develop, simulate and debug an FPGA design on compute [EC2 instance](https://aws.amazon.com/ec2/) with no cost of development or runtime tools. Once the FPGA design (also called CL - Custom logic) is complete, developers create the Amazon FPGA Image (AFI), and easily deploy it to the F1 instance. AFIs are reusable, shareable and can be deployed in a scalable and secure way.
 ![Alt text](hdk/docs/images/f1-Instance-How-it-Works-flowchart.jpg)
 
 <a name="overviewdevenv"></a>
@@ -44,7 +46,7 @@ The AWS EC2 FPGA Development Kit is provided by AWS to support development and r
 
 | Tool     | Development/Runtime | Tool location | Description |
 | --------|---------|---------|---------|
-| Vitis 2019.2 Development | [FPGA Developer AMI](https://aws.amazon.com/marketplace/pp/B06VVYBLZZ) | Used for [Software Defined Accelerator Development using the new Vitis toolset](Vitis/README.md) |
+| Vitis 2019.2 | Development | [FPGA Developer AMI](https://aws.amazon.com/marketplace/pp/B06VVYBLZZ) | Used for [Software Defined Accelerator Development using the new Vitis toolset](Vitis/README.md) |
 | Vivado 2017.4, 2018.2, 2018.3, 2019.1 & 2019.2 | Development | [FPGA Developer AMI](https://aws.amazon.com/marketplace/pp/B06VVYBLZZ) | Used for [Hardware Accelerator Development](hdk/README.md) |
 | SDx 2017.4, 2018.2, 2018.3  & 2019.1| Development | [FPGA Developer AMI](https://aws.amazon.com/marketplace/pp/B06VVYBLZZ) | Used for [Software Defined Accelerator Development](SDAccel/README.md) |
 | FPGA AFI Management Tools | Runtime | [SDK - fpga\_mgmt\_tools](sdk/userspace/fpga_mgmt_tools) | Command-line tools used for FPGA management while running on the F1 instance |
@@ -78,13 +80,12 @@ The AWS EC2 FPGA Development Kit is provided by AWS to support development and r
 <a name="gettingstarted"></a>
 # Getting Started
 
-### New to AWS?
+### Getting familiar with AWS
 If you have never used AWS before, we recommend you start with [AWS getting started training](https://aws.amazon.com/getting-started/), and focus on the basics of the [AWS EC2](https://aws.amazon.com/ec2/) and [AWS S3](https://aws.amazon.com/s3/) services.  Understanding the fundamentals of these services will make it easier to work with AWS FPGAs.
 
 AWS FPGA generation and EC2 F1 instances are supported in the us-east-1 (N. Virginia), us-west-2 (Oregon), eu-west-1 (Ireland) and us-gov-west-1 ([GovCloud US](https://aws.amazon.com/govcloud-us/)) [regions](https://aws.amazon.com/about-aws/global-infrastructure/).
 
-
-### New to AWS FPGAs and setting up a development environment?
+### Setting up development environment for the first time 
 The developer kit is supported for Linux operating systems only. 
 You have the choice to develop on AWS EC2 using the [FPGA Developer AMI](https://aws.amazon.com/marketplace/pp/B06VVYBLZZ) or on-premises. Within a linux environment, you can execute `git clone https://github.com/aws/aws-fpga.git` to download the latest release to your EC2 Instance or local server.  Help on cloning from github is available [here](https://help.github.com/articles/which-remote-url-should-i-use/). When using a SSH connection, execute `git clone git@github.com:aws/aws-fpga.git`. [To get help with connecting to Github via SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
 
@@ -92,7 +93,7 @@ To setup your instance for development, checkout our [Developer Resources](./dev
 
 Before you start your first AWS FPGA design, we recommend that you go through one of the step-by-step guides.  The guides will walk through development steps for hello world examples.  Based on the tables above, pick the development environment that best fits your needs and use the guide to get started:
   * For fastest way to get started on FPGA accelerator development, start with the software-defined development environment. The guide starts with the [Hello World example](Vitis/README.md).
-    * Next use the same guide to develop using the C/C++/openCL/RTL based [60+ examples on github](./Vitis/examples/xilinx_2019.2).
+    * Next use the same guide to develop using the C/C++/openCL/RTL based [60+ examples on github](https://github.com/Xilinx/Vitis_Accel_Examples/tree/bb80c8ec699c3131e8874735bd99475ac6fe2ec7).
   * For custom hardware development (HDK) environment, start with the [HDK Hello World example](hdk/README.md).
     * Next use the same guide to develop using the [cl\_dram\_dma](hdk/cl/examples/cl_dram_dma).
 
